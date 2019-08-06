@@ -1,0 +1,43 @@
+bagsChecked = 0 
+valueAdded = 0 
+valueRemoved = 0
+
+def MoneyBags():
+    global bagsChecked,valueAdded,valueRemoved
+    bagsChecked = bagsChecked + 1 
+    coins = {"1p":(3.56, 100, 1), "2p": (7.12, 50, 2), "5p": (3.25, 100, 5), "10p": (6.50, 50, 10), "20p": (5.00, 50, 5), "50p": (8.00, 20, 8), "£1": (9.50, 20, 9.5), "£2": (12.00, 10, 12)}
+    bagsToCheck = input("Do you want to check a bag? Y/N: ")
+    bagsToCheck = bagsToCheck.title()
+
+    if bagsToCheck == "Y":
+        coinType = input("Which coin is it?: ")
+        WeightOfBag = float(input("What is the weight in grams?: "))
+        NumberOfCoin = int(WeightOfBag // coins[coinType][0])
+        print("There are, " + str(NumberOfCoin) + "  " + coinType + " Coins in the bag")
+        if NumberOfCoin < coins[coinType][1]:
+            coinadd = coins[coinType][1]- NumberOfCoin 
+            print("Add the total, " + str(coinadd) + " " + coinType + " Coins to the bag")
+            valueAdded = valueAdded + (coinadd * coins[coinType][2] / 100)           
+        elif NumberOfCoin > coins[coinType][1]:
+            Coinsremove = NumberOfCoin - coins[coinType][1]
+            print("Remove, " + str(Coinsremove) + " " + coinType + " Coins from the bag")
+            valueRemoved = valueRemoved + (Coinsremove * coins[coinType][2] / 100)
+            
+        else:
+            print("This bag has the correct number of coins inside it")
+
+    bagsToCheck = input("Would you like to check another bag?: Y/N: ")
+    bagsToCheck = bagsToCheck.title()
+    if bagsToCheck == "Y":
+        MoneyBags()
+    elif bagsToCheck == "N":
+        print("You have weighed " +str(bagsChecked)+ " bag(s)")
+        print("The value of coins added is : £" + "{0:.2f}".format(valueAdded))
+        print("The value of coins removed is : £" + "{0:.2f}".format(valueRemoved))        
+              
+              
+          
+           
+
+MoneyBags()
+
